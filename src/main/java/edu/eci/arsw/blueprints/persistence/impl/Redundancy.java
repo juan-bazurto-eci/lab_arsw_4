@@ -11,11 +11,6 @@ import java.util.List;
 @Service
 public class Redundancy implements Filter {
 
-    /**
-     * Metodo que filtra los points por redundancy
-     * @param bp is teh Blueprint to apply the filter
-     * @return suprime del plano los puntos consecutivos que sean repetidos.
-     */
     @Override
     public Blueprint filterPoints(Blueprint bp) {
         List<Point> pts = bp.getPoints();
@@ -29,12 +24,6 @@ public class Redundancy implements Filter {
         return bp;
     }
 
-    /**
-     * Verifica si dos puntos son iguales
-     * @param p1 Punto 1
-     * @param p2 Punto 2
-     * @return Booleano True si so iguales, false de lo contrario
-     */
     public boolean equalsPoints(Point p1, Point p2) {
         boolean equalsp = false;
         if (p1.getX() == p2.getX() && p1.getY() == p2.getY()) {
@@ -43,12 +32,6 @@ public class Redundancy implements Filter {
         return equalsp;
     }
 
-    /**
-     * Metodo para remover puntos repetidos de una lista
-     * @param pstRepeat lista de puntos repetidos
-     * @param ptsAll lista de todos los puntos
-     * @return lista sin elementos repetidos
-     */
     public List<Point> removeRepeatedPoints(List<Point> pstRepeat, List<Point> ptsAll) {
         List<Point> listNew = new ArrayList<>();
         for (int i = 0; i< ptsAll.size(); i++){
