@@ -29,6 +29,15 @@ public class Main {
         System.out.println("getCurrentBluePrint");
         System.out.println(bps.getBlueprint(currentBp.getAuthor(), currentBp.getName()));
         ((ClassPathXmlApplicationContext) appContext).close();
+
+
+        System.out.println("Get blueprint con redundancy");
+        Point[] ptsFilter = new Point[]{new Point(10, 10), new Point(10, 10), new Point(10,10), new Point(10,10)};
+        bps.addNewBlueprint(new Blueprint("Juan", "casa#38", ptsFilter));
+        Blueprint blueprint1 = bps.getBlueprint("Juan","casa#38");
+        for (Point p: blueprint1.getPoints()) {
+            System.out.println("Punto: " + p);
+        }
     }
 
 }

@@ -9,9 +9,13 @@ import edu.eci.arsw.blueprints.model.Blueprint;
 import edu.eci.arsw.blueprints.model.Point;
 import edu.eci.arsw.blueprints.persistence.BlueprintNotFoundException;
 import edu.eci.arsw.blueprints.persistence.BlueprintsPersistence;
+
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
+
+import edu.eci.arsw.blueprints.persistence.Filter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +28,9 @@ public class BlueprintsServices {
 
     @Autowired
     BlueprintsPersistence bpp = null;
+
+    @Autowired
+    Filter filter;
 
     public void addNewBlueprint(Blueprint bp) {
         try {
@@ -54,6 +61,7 @@ public class BlueprintsServices {
         Blueprint blueprint;
         try {
             blueprint = bpp.getBlueprint(author, name);
+            blueprint =  filter.filterPoints(blueprint);
         } catch (Exception e) {
             throw new UnsupportedOperationException("Error with the operation on services.");
         }
@@ -66,14 +74,14 @@ public class BlueprintsServices {
      * @return all the blueprints of the given author
      * @throws BlueprintNotFoundException if the given author doesn't exist
      */
-    public Set<Blueprint> getBlueprintsByAuthor(String author) throws BlueprintNotFoundException {
-        Set<Blueprint> blueprints;
-        try {
-            blueprints = bpp.getBlueprintsByAuthor(author);
-        } catch (Exception e) {
-            throw new UnsupportedOperationException("Error with the operation on services.");
+    public Set<Blueprint> getBlueprintsByAuthor(String author) throws BlueprintNotFoundException{
+        Set<Blueprint> blueprints = bpp.getBlueprintsByAuthor(author);
+        Set<Blueprint> blueprintsWithFilter = new HashSet<>();
+        for(Blueprint bp: blueprints){
+            bp = filter.filterPoints(bp);
+            blueprintsWithFilter.add(bp);
         }
-        return blueprints;
+        return blueprintsWithFilter;
     }
 
 }
