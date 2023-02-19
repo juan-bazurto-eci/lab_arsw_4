@@ -34,7 +34,13 @@ public class BlueprintsServices {
     }
 
     public Set<Blueprint> getAllBlueprints() {
-        return null;
+        Set<Blueprint> blueprints;
+        try {
+            blueprints = bpp.getAllBlueprints();
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Error with the operation on services.");
+        }
+        return blueprints;
     }
 
     /**

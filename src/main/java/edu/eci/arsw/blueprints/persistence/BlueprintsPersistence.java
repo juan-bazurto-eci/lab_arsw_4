@@ -27,6 +27,13 @@ public interface BlueprintsPersistence {
 
     /**
      * 
+     * @return All blueprints
+     * @throws BlueprintNotFoundException if there is no such blueprints
+     */
+    public Set<Blueprint> getAllBlueprints() throws BlueprintNotFoundException;
+
+    /**
+     * 
      * @param author     blueprint's author
      * @param bprintname blueprint's author
      * @return the blueprint of the given name and author
