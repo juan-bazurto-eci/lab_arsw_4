@@ -21,37 +21,53 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class BlueprintsServices {
-   
+
     @Autowired
-    BlueprintsPersistence bpp=null;
-    
-    public void addNewBlueprint(Blueprint bp){
-        
+    BlueprintsPersistence bpp = null;
+
+    public void addNewBlueprint(Blueprint bp) {
+        try {
+            bpp.saveBlueprint(bp);
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Error with the operation on services.");
+        }
     }
-    
-    public Set<Blueprint> getAllBlueprints(){
+
+    public Set<Blueprint> getAllBlueprints() {
         return null;
     }
-    
+
     /**
      * 
      * @param author blueprint's author
-     * @param name blueprint's name
+     * @param name   blueprint's name
      * @return the blueprint of the given name created by the given author
      * @throws BlueprintNotFoundException if there is no such blueprint
      */
-    public Blueprint getBlueprint(String author,String name) throws BlueprintNotFoundException{
-        throw new UnsupportedOperationException("Not supported yet."); 
+    public Blueprint getBlueprint(String author, String name) throws BlueprintNotFoundException {
+        Blueprint blueprint;
+        try {
+            blueprint = bpp.getBlueprint(author, name);
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Error with the operation on services.");
+        }
+        return blueprint;
     }
-    
+
     /**
      * 
      * @param author blueprint's author
      * @return all the blueprints of the given author
      * @throws BlueprintNotFoundException if the given author doesn't exist
      */
-    public Set<Blueprint> getBlueprintsByAuthor(String author) throws BlueprintNotFoundException{
-        throw new UnsupportedOperationException("Not supported yet."); 
+    public Set<Blueprint> getBlueprintsByAuthor(String author) throws BlueprintNotFoundException {
+        Set<Blueprint> blueprints;
+        try {
+            blueprints = bpp.getBlueprintsByAuthor(author);
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Error with the operation on services.");
+        }
+        return blueprints;
     }
-    
+
 }
