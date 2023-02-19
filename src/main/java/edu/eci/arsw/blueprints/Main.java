@@ -39,6 +39,41 @@ public class Main {
         for (Point p: blueprint1.getPoints()) {
             System.out.println("Punto: " + p);
         }
+
+        System.out.println("Get blueprint por autor con redundancy");
+        Point[] ptsFilter1 = new Point[]{new Point(10, 11), new Point(11, 10), new Point(11,10)};
+        Point[] ptsFilter2 = new Point[]{new Point(11, 10), new Point(11, 10), new Point(10,10)};
+        bps.addNewBlueprint(new Blueprint("Angel", "casa#77", ptsFilter1));
+        bps.addNewBlueprint(new Blueprint("Angel", "casa#78", ptsFilter2));
+        Set<Blueprint> setbp = bps.getBlueprintsByAuthor("Angel");
+        for (Blueprint bp: setbp) {
+            System.out.println("Blueprint " + bp.getName());
+            for (Point p: bp.getPoints()) {
+                System.out.println("Punto: " + p);
+            }
+        }
+
+        System.out.println("Get blueprint con undersampling");
+        Point[] ptsFilterUS = new Point[]{new Point(11, 11), new Point(12, 12), new Point(13,13), new Point(14,14)};
+        bps.addNewBlueprint(new Blueprint("Carlos", "casa#85", ptsFilterUS));
+        Blueprint blueprintunder = bps.getBlueprint("Carlos","casa#85");
+        for (Point p: blueprintunder.getPoints()) {
+            System.out.println("Punto: " + p);
+        }
+
+        System.out.println("Get blueprint por autor con undersampling");
+        Point[] ptsFilter1US = new Point[]{new Point(13, 13), new Point(14,14), new Point(15,15)};
+        Point[] ptsFilter2US = new Point[]{new Point(11, 10), new Point(10,12), new Point(10,11)};
+        bps.addNewBlueprint(new Blueprint("Bazurto", "casa#99", ptsFilter1US));
+        bps.addNewBlueprint(new Blueprint("Bazurto", "casa#98", ptsFilter2US));
+        Set<Blueprint> bpus = bps.getBlueprintsByAuthor("Bazurto");
+        for (Blueprint bp: bpus) {
+            System.out.println("Blueprint " + bp.getName());
+            for (Point p: bp.getPoints()) {
+                System.out.println("Punto: " + p);
+            }
+        }
+
     }
 
 }
