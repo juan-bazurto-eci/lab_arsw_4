@@ -8,16 +8,19 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-//@Service
+@Service
 public class Redundancy implements Filter {
 
     @Override
     public Blueprint filterPoints(Blueprint bp) {
         List<Point> pts = bp.getPoints();
         List<Point> ptsRepeat = new ArrayList<>();
-        for (int i = 0; i< pts.size() - 1; i++){
-            if(equalsPoints(pts.get(i),pts.get(i+1))){
-                ptsRepeat.add(pts.get(i));
+        for (int i = 0; i< pts.size(); i++) {
+            for (int j = i+1; j < pts.size(); j++) {
+                if (equalsPoints(pts.get(i),pts.get(j))) {
+                    ptsRepeat.add(pts.get(i));
+                    break;
+                }
             }
         }
         bp.setPoints(removeRepeatedPoints(ptsRepeat,pts));
@@ -33,13 +36,8 @@ public class Redundancy implements Filter {
     }
 
     public List<Point> removeRepeatedPoints(List<Point> pstRepeat, List<Point> ptsAll) {
-        List<Point> listNew = new ArrayList<>();
-        for (int i = 0; i< ptsAll.size(); i++){
-            listNew.add(ptsAll.get(i));
-        }
-        for (int i = 0; i< pstRepeat.size(); i++){
-            listNew.remove(pstRepeat.get(i));
-        }
+        List<Point> listNew = new ArrayList<>(ptsAll);
+        listNew.removeAll(pstRepeat);
         return listNew;
     }
 }

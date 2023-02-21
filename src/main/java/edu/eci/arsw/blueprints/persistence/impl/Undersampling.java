@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+//@Service
 public class Undersampling implements Filter {
     @Override
     public Blueprint filterPoints(Blueprint bp) {
