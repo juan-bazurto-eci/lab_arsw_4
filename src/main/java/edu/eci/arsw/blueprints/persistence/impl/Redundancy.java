@@ -32,13 +32,20 @@ public class Redundancy implements Filter {
         return equalsp;
     }
 
-    public List<Point> removeRepeatedPoints(List<Point> pstRepeat, List<Point> ptsAll) {
+
+    /**
+     *
+     * @param duplicatedPts
+     * @param allPts
+     * @return
+     */
+    public List<Point> removeRepeatedPoints(List<Point> allPts, List<Point> duplicatedPts){
         List<Point> listNew = new ArrayList<>();
-        for (int i = 0; i< ptsAll.size(); i++){
-            listNew.add(ptsAll.get(i));
+        for (int i = 0; i< allPts.size(); i++){
+            listNew.add(allPts.get(i));
         }
-        for (int i = 0; i< pstRepeat.size(); i++){
-            listNew.remove(pstRepeat.get(i));
+        for (int i = 0; i< duplicatedPts.size(); i++){
+            listNew.remove(duplicatedPts.get(i));
         }
         return listNew;
     }
