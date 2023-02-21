@@ -15,15 +15,15 @@ public class Redundancy implements Filter {
     public Blueprint filterPoints(Blueprint bp) {
         List<Point> pts = bp.getPoints();
         List<Point> ptsRepeat = new ArrayList<>();
-        for (int i = 0; i< pts.size(); i++) {
-            for (int j = i+1; j < pts.size(); j++) {
-                if (equalsPoints(pts.get(i),pts.get(j))) {
+        for (int i = 0; i < pts.size(); i++) {
+            for (int j = i + 1; j < pts.size(); j++) {
+                if (equalsPoints(pts.get(i), pts.get(j))) {
                     ptsRepeat.add(pts.get(i));
                     break;
                 }
             }
         }
-        bp.setPoints(removeRepeatedPoints(ptsRepeat,pts));
+        bp.setPoints(removeRepeatedPoints(ptsRepeat, pts));
         return bp;
     }
 
@@ -35,9 +35,20 @@ public class Redundancy implements Filter {
         return equalsp;
     }
 
-    public List<Point> removeRepeatedPoints(List<Point> pstRepeat, List<Point> ptsAll) {
-        List<Point> listNew = new ArrayList<>(ptsAll);
-        listNew.removeAll(pstRepeat);
+    /**
+     *
+     * @param duplicatedPts
+     * @param allPts
+     * @return
+     */
+    public List<Point> removeRepeatedPoints(List<Point> allPts, List<Point> duplicatedPts) {
+        List<Point> listNew = new ArrayList<>();
+        for (int i = 0; i < allPts.size(); i++) {
+            listNew.add(allPts.get(i));
+        }
+        for (int i = 0; i < duplicatedPts.size(); i++) {
+            listNew.remove(duplicatedPts.get(i));
+        }
         return listNew;
     }
 }
