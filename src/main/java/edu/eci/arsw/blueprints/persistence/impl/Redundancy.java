@@ -8,19 +8,22 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-//@Service
+@Service
 public class Redundancy implements Filter {
 
     @Override
     public Blueprint filterPoints(Blueprint bp) {
         List<Point> pts = bp.getPoints();
         List<Point> ptsRepeat = new ArrayList<>();
-        for (int i = 0; i< pts.size() - 1; i++){
-            if(equalsPoints(pts.get(i),pts.get(i+1))){
-                ptsRepeat.add(pts.get(i));
+        for (int i = 0; i< pts.size(); i++) {
+            for (int j = i+1; j < pts.size(); j++) {
+                if (equalsPoints(pts.get(i),pts.get(j))) {
+                    ptsRepeat.add(pts.get(i));
+                    break;
+                }
             }
         }
-        bp.setPoints(removeRepeatedPoints(ptsRepeat,pts));
+        bp.setPoints(removeRepeatedPoints(ptsRepeat, pts));
         return bp;
     }
 
@@ -32,21 +35,20 @@ public class Redundancy implements Filter {
         return equalsp;
     }
 
-
-    /**
-     *
-     * @param duplicatedPts
-     * @param allPts
-     * @return
-     */
-    public List<Point> removeRepeatedPoints(List<Point> allPts, List<Point> duplicatedPts){
-        List<Point> listNew = new ArrayList<>();
-        for (int i = 0; i< allPts.size(); i++){
-            listNew.add(allPts.get(i));
-        }
-        for (int i = 0; i< duplicatedPts.size(); i++){
-            listNew.remove(duplicatedPts.get(i));
-        }
+    /*
+    public List<Point> removeRepeatedPoints(List<Point> pstRepeat, List<Point> ptsAll) {
+        List<Point> listNew = new ArrayList<>(ptsAll);
+        listNew.removeAll(pstRepeat);
         return listNew;
     }
+    */
+
+    public List<Point> removeRepeatedPoints(List<Point> ptsRepeat, List<Point> ptsAll) {
+        List<Point> result = new ArrayList<>(ptsAll);
+        for (Point repeat : ptsRepeat) {
+            result.remove(repeat);
+        }
+        return result;
+    }
+
 }

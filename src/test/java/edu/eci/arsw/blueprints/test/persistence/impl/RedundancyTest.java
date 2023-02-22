@@ -69,10 +69,10 @@ public class RedundancyTest {
 
     @Test
     public void removeRepeatedPointsTest(){
-        List<Point> removedPTSBP1 = rd.removeRepeatedPoints(Arrays.asList(pointsBP1), Arrays.asList(repeatsInBP1PTS));
+        List<Point> removedPTSBP1 = rd.removeRepeatedPoints(Arrays.asList(repeatsInBP1PTS), Arrays.asList(pointsBP1));
         assertEquals(Arrays.asList(shouldBePTSBP1), removedPTSBP1);
 
-        List<Point> removedPTSBP2 = rd.removeRepeatedPoints(Arrays.asList(pointsBP2), Arrays.asList(repeatsInBP2PTS));
+        List<Point> removedPTSBP2 = rd.removeRepeatedPoints(Arrays.asList(repeatsInBP2PTS), Arrays.asList(pointsBP2));
         assertEquals(Arrays.asList(shouldBePTSBP2), removedPTSBP2);
 
     }

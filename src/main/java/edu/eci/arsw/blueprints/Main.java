@@ -41,7 +41,7 @@ public class Main {
         }
 
         System.out.println("Get blueprint por autor con redundancy");
-        Point[] ptsFilter1 = new Point[]{new Point(10, 11), new Point(11, 10), new Point(11,10)};
+        Point[] ptsFilter1 = new Point[]{new Point(10, 11), new Point(11, 10), new Point(11,10), new Point(10, 11)};
         Point[] ptsFilter2 = new Point[]{new Point(11, 10), new Point(11, 10), new Point(10,10)};
         bps.addNewBlueprint(new Blueprint("Angel", "casa#77", ptsFilter1));
         bps.addNewBlueprint(new Blueprint("Angel", "casa#78", ptsFilter2));
